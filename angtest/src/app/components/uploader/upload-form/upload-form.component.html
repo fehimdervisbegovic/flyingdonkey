@@ -1,4 +1,7 @@
-<div>
+<div style="padding: 7px; border: gray 1px solid;">
     <label for="inpFile" style="display: block; margin-bottom: 7px;">Select file for upload</label>
-    <input id="inpFile" type="file" (change)="onFileChange($event)"/>
+    <input name="inpFile" type="file" (change)="onFileChange($event)"/>
+    <button style="margin-left: 10px;" type="button" (click)="onUploadFiles($event)">Upload file</button>
+    <br>
+    <div *ngIf="message" class="message" [ngClass]="getMessageClass()">{{message.body}}</div>
 </div>

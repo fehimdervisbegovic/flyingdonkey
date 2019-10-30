@@ -1,0 +1,23 @@
+.message {
+    margin-top: 5px; 
+    display: block; 
+    padding: 7px;
+}
+
+.info-message {
+    border: 1px solid black;
+    color: black; 
+    background-color: skyblue;
+}
+
+.success-message {
+    border: 1px solid green;
+    color: green; 
+    background-color: silver;
+}
+
+.error-message {
+    border: 1px solid red;
+    color: red; 
+    background-color: yellow;
+}

@@ -3,3 +3,8 @@
 ################################################################################
 
 /ApiTest/.vs
+/ApiTest/ApiTest/bin/Debug
+/ApiTest/ApiTest/obj
+/ApiTest/ApiTest.XUnitTests/bin/Debug
+/ApiTest/ApiTest.XUnitTests/obj
+/ApiTest/ApiTest/ApiTest.csproj.user

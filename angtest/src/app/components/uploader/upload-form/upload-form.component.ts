@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { UploaderFile } from 'src/app/models/uploader-file';
+import { MessageType } from 'src/app/models/message-type';
 import { UploaderService } from 'src/app/services/uploader.service';
 
 @Component({
@@ -8,27 +11,64 @@ import { UploaderService } from 'src/app/services/uploader.service';
 })
 export class UploadFormComponent implements OnInit {
 
-  form: any;
-  message: string;
-  error: any;
+  message: { body: string, type: MessageType };
 
-  constructor(private uploader: UploaderService) { }
+  uploaderFile: UploaderFile;
 
-  onFileChange = (evt: File) => {
-    //
-    console.log(`File changed: `, evt);
+  constructor(private uploader: UploaderService) {
+    this.uploaderFile = {};
   }
 
-  onUploadFiles = () => {
-    const files = new FormData();
-    files.append('file', this.form.get('avatar').value);
+  reset = () => {
+    this.message = null;
+    this.uploaderFile = {};
+  }
 
-    this.uploader.uploadFile(files).subscribe(
-      res => this.message = res, err => this.error = err
+  onFileChange = (evt: any) => {
+
+    this.reset();
+
+    const files: FileList = evt.target.files;
+    const file = files.item(0);
+
+    this.uploaderFile = {
+      file,
+      fileSize: `${file.size} bytes`,
+      uploadDate: new Date(),
+      userUploaded: 'uploader@gmail.com',
+      fileName: file.name
+    };
+
+    console.log(`File ready for upload: `, this.uploaderFile);
+  }
+
+  onUploadFiles = (event) => {
+
+    event.preventDefault();
+
+    // info message
+    this.message = { body: `Uploading file ${this.uploaderFile.fileName} please wait ...`, type: MessageType.INFO };
+
+    this.uploader.uploadFile(this.uploaderFile).subscribe(
+      res => {
+        // success message
+        this.message = { body: `File has been successfully uploaded`, type: MessageType.SUCCESS };
+        this.uploader.addFile(res);
+      }, err => {
+        // error message
+        this.message = { body: err.error || err.message, type: MessageType.ERROR };
+      }
     );
+  }
+
+  getMessageClass = () => {
+    return {
+      'info-message': this.message.type === MessageType.INFO,
+      'success-message': this.message.type === MessageType.SUCCESS,
+      'error-message': this.message.type === MessageType.ERROR
+    };
   }
 
   ngOnInit() {
   }
-
 }
