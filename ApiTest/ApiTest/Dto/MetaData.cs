@@ -12,6 +12,8 @@ namespace ApiTest.Dto
         [MinLength(5, ErrorMessage = "File name must be at last 5 characters long")]
         public string FileName { get; set; }
 
+        public string FileExtension { get; set; }
+
         [Required(ErrorMessage ="User ID is required")]
         public string UserUploaded { get; set; }
 

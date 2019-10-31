@@ -1,20 +1,24 @@
 <div *ngIf="(files$ | async) as files">
     <h4>Uploaded files</h4>
-    <small *ngIf="!files.length">No files uploaded</small>
-    <table *ngIf="files.length">
-        <thead>
-            <tr>
-                <th>File Name</th>
-                <th>Size</th>
-                <th>User</th>
-                <th>Date uploaded</th>
+    <div *ngFor="let ext of files | keyvalue">
+        <div style="padding: 5px; background-color: gray;">
+            {{ext.key}}
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Size</th>
+                    <th>User</th>
+                    <th>Date uploaded</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let f of ext.value">
+                <td>{{f.fileName}}</td>
+                <td>{{f.fileSize}}</td>
+                <td>{{f.userUploaded}}</td>
+                <td>{{f.uploadDate | date:'short'}}</td>
             </tr>
-        </thead>
-        <tr *ngFor="let f of files">
-            <td>{{f.fileName}}</td>
-            <td>{{f.fileSize}}</td>
-            <td>{{f.userUploaded}}</td>
-            <td>{{f.uploadDate | date:'short'}}</td>
-        </tr>
-    </table>
+        </table>
+    </div>
 </div>

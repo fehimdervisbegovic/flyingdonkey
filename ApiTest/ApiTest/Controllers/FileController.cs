@@ -47,6 +47,7 @@ namespace ApiTest.Controllers
                     await _fileService.StoreFile(f);
 
                     metaData.FileName = Path.GetFileName(f.FileName);
+                    metaData.FileExtension = Path.GetExtension(f.FileName);
                     metaData.FileSize = $"{f.Length} bytes";
                     metaData.UploadDate = DateTime.UtcNow;
                 }

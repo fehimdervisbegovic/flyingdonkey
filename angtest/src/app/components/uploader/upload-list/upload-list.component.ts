@@ -10,7 +10,7 @@ import { UploaderFile } from 'src/app/models/uploader-file';
 })
 export class UploadListComponent implements OnInit {
 
-  files$: Observable<UploaderFile[]>;
+  files$: Observable<{}>;
 
   constructor(private uploader: UploaderService) { }
 
